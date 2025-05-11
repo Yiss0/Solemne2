@@ -1,0 +1,30 @@
+footer{
+    background-color: var(--secundario);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 1rem;
+    box-shadow: var(--sombra);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer__logo {
+    width: 15%;
+    margin-right: 52rem;
+}
+
+.footer__informacion {
+    display: grid;
+    grid-template-rows: 3;
+}
+
+.footer__informacion__enlace {
+    color: var(--primario);
+    font-size: 1rem;
+}
+
+.footer__informacion__enlace:hover {
+    color: var(--blanco);
+}

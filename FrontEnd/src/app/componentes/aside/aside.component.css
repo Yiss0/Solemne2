@@ -1,0 +1,49 @@
+.sidebar {
+    background-color: var(--secundarioClaro);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: var(--sombra);
+    height: fit-content;
+    margin-left: 20px;
+}
+
+.sidebar__h2 {
+    color: var(--primario);
+    font-size: 2rem;
+}
+
+.sidebar__filtro {
+    display: flex;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.sidebar__filtro--h3 {
+    margin-bottom: 10px;
+    font-size: 1.4rem;
+    padding: 5px;
+}
+
+.cajaTexto {
+    width: 100%;
+    padding: 10px;
+    border:1px solid var(--primario);
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.sidebar__filtro--opciones {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.filtro__opcion {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.checkbox {
+    cursor: pointer;
+}

@@ -3,7 +3,18 @@
     --secundario: #3F334D;
     --secundarioClaro: #574B60;
     --negro: #000;
+    --blanco: #fff;
     --fuente:"Fira Mono", monospace;
+    --sombra: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+html {
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
 }
 
 body {
@@ -39,8 +50,20 @@ p {
 
 a {
     text-decoration: none;
+    font-family: var(--fuente);
+}
+
+label {
+    font-family: var(--fuente);
+    font-size: 1.2rem;
 }
 
 img {
     width: 100%;;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 1.3fr 3fr;
+    gap:20px
 }

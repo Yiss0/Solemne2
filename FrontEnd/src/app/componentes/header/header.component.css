@@ -1,0 +1,24 @@
+header {
+    background-color: var(--secundarioClaro);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    box-shadow: var(--sombra);
+    margin-bottom: 2rem;
+}
+
+.navegacion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+
+.navegacion__enlace {
+    color: var(--primario);
+    gap: 2px;   
+}
+.navegacion__enlace:hover {
+    color: var(--blanco);
+}
