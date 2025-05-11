@@ -1,1 +1,46 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    --primario: #C9CAD9;
+    --secundario: #3F334D;
+    --secundarioClaro: #574B60;
+    --negro: #000;
+    --fuente:"Fira Mono", monospace;
+}
+
+body {
+    background-color: var(--primario);
+    font-size: 1.6rem;
+    line-height: 1.5;
+}
+
+h1,
+h2,
+h3 {
+    text-align: center;
+    font-family: var(--fuente);
+}
+
+h1{
+    font-size: 4rem;
+}
+
+h2{
+    font-size: 3.2rem;
+}
+
+h3{
+    font-size: 2.4rem;
+}
+
+p {
+    font-size: 1.8rem;
+    font-family: var(--fuente);
+    color: var(--negro);
+}
+
+a {
+    text-decoration: none;
+}
+
+img {
+    width: 100%;;
+}
