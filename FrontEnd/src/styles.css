@@ -1,9 +1,10 @@
 :root {
-    --primario: #C9CAD9;
-    --secundario: #3F334D;
-    --secundarioClaro: #574B60;
+    --primario: #FCFAFA;
+    --secundario: #13293D;
+    --secundarioClaro: #417BCC;
     --negro: #000;
     --blanco: #fff;
+    --gris: #5B5B5B;
     --fuente:"Fira Mono", monospace;
     --sombra: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
@@ -56,6 +57,7 @@ a {
 label {
     font-family: var(--fuente);
     font-size: 1.2rem;
+    color: var(--primario);
 }
 
 img {
