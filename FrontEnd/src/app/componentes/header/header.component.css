@@ -1,11 +1,18 @@
 header {
-    background-color: var(--secundarioClaro);
+    background-color: var(--secundario);
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
-    box-shadow: var(--sombra);
     margin-bottom: 2rem;
+    height: 80px;
+    width: 100%;
+}
+
+.header__logo {
+    width: 10%;
+    margin-top: 5px;
+    margin-bottom: -5px;
 }
 
 .navegacion {
@@ -17,8 +24,9 @@ header {
 
 .navegacion__enlace {
     color: var(--primario);
-    gap: 2px;   
+    gap: 2px;
+    font-size: 1rem;   
 }
 .navegacion__enlace:hover {
-    color: var(--blanco);
+    color: var(--secundarioClaro);
 }
