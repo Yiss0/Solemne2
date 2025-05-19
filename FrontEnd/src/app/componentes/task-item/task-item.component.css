@@ -1,0 +1,70 @@
+.task-item {
+    background-color: var(--blanco);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: var(--sombra);
+    transition: transform 0.2s;
+}
+
+.task-item:hover {
+    transform: translateY(-2px);
+}
+
+.task-item__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.task-item__header--prioridad{
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    background-color: var(--rojo);
+}
+
+.task-item__header--parrafo {
+}
+
+.task-item__header--h2 {
+    font-size: 2rem;
+}
+
+
+.task-item__main {
+
+}
+
+.task-item__main--informacion {
+}
+
+.task-item__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-item__footer--fechas {
+    display: flex;
+    gap: 15px;
+}
+
+.task-item__footer--fecha {
+    font-size: 15px;
+}
+
+.task-item__footer--acciones {
+    display: flex;
+    gap: 10px;
+}
+
+.task-item__footer--boton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
