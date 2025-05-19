@@ -7,6 +7,7 @@ header {
     margin-bottom: 2rem;
     height: 80px;
     width: 100%;
+    box-shadow: var(--sombra);
 }
 
 .header__logo {

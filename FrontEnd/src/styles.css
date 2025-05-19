@@ -1,10 +1,11 @@
 :root {
-    --primario: #FCFAFA;
-    --secundario: #13293D;
-    --secundarioClaro: #417BCC;
+    --primario: #fcfafa;
+    --secundario: #13293d;
+    --secundarioClaro: #417bcc;
     --negro: #000;
     --blanco: #fff;
-    --gris: #5B5B5B;
+    --gris: #5b5b5b;
+    --rojo: #f44336;
     --fuente:"Fira Mono", monospace;
     --sombra: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
@@ -66,6 +67,10 @@ img {
 
 main {
     display: grid;
-    grid-template-columns: 1.3fr 3fr;
-    gap:20px
+    grid-template-columns: 300px 1fr;
+    gap: 20px;
+}
+
+button {
+    font-family: var(--fuente);
 }

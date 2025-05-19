@@ -1,0 +1,31 @@
+.task-list--contenedor {
+    background-color: var(--secundario);
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: var(--sombra);
+    margin-right: 20px;
+}
+
+.task-list__header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.task-list__header--h1 {
+    color: var(--primario);
+    font-size: 3rem;
+}
+
+.task-list__header--boton {
+    background-color: var(--gris);
+    color: var(--blanco);
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    cursor: pointer;
+    align-items: center;
+    gap: 5px;
+    font-size: 15px;
+}
