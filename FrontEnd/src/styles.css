@@ -1,12 +1,15 @@
 :root {
-    --primario: #fcfafa;
-    --secundario: #13293d;
-    --secundarioClaro: #417bcc;
-    --negro: #000;
-    --blanco: #fff;
-    --gris: #5b5b5b;
+    --primario: #ece4b7;
+    --secundario: #333333;
+    --grisOscuro: #555555;
+    --grisClaro: #e0e0e0;
+    --grisMedio: #9e9e9e;
+    --verde: #4caf50;
+    --anaranjado: #ff9800;
     --rojo: #f44336;
-    --fuente:"Fira Mono", monospace;
+    --blanco: #fff;
+    --negro: #000;
+    --fuente: "Roboto", sans-serif;;
     --sombra: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -17,10 +20,11 @@ html {
     box-sizing: inherit;
     margin: 0;
     padding: 0;
+    font-family: var(--fuente);
 }
 
 body {
-    background-color: var(--primario);
+    background-color: var(--grisClaro);
     font-size: 1.6rem;
     line-height: 1.5;
 }
@@ -29,7 +33,6 @@ h1,
 h2,
 h3 {
     text-align: center;
-    font-family: var(--fuente);
 }
 
 h1{
@@ -45,20 +48,16 @@ h3{
 }
 
 p {
-    font-size: 1.8rem;
-    font-family: var(--fuente);
-    color: var(--negro);
+    color: var(--secundario);
 }
 
 a {
     text-decoration: none;
-    font-family: var(--fuente);
 }
 
 label {
-    font-family: var(--fuente);
-    font-size: 1.2rem;
-    color: var(--primario);
+    font-size: 17px;
+    color: var(--secundario);
 }
 
 img {
@@ -69,8 +68,11 @@ main {
     display: grid;
     grid-template-columns: 300px 1fr;
     gap: 20px;
+    flex-grow: 1;
 }
 
-button {
-    font-family: var(--fuente);
+.contenedor {
+    max-width: 1200px;
+    width: 90%;
+    margin: 0 auto;
 }
