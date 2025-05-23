@@ -1,9 +1,10 @@
 .task-list--contenedor {
-    background-color: var(--secundario);
+    background-color: var(--primario);
     padding: 20px;
     border-radius: 16px;
     box-shadow: var(--sombra);
     margin-right: 20px;
+    margin-bottom: 20px;
 }
 
 .task-list__header{
@@ -14,12 +15,12 @@
 }
 
 .task-list__header--h1 {
-    color: var(--primario);
-    font-size: 3rem;
+    color: var(--secundario);
+    font-size: 35px;
 }
 
 .task-list__header--boton {
-    background-color: var(--gris);
+    background-color: var(--secundario);
     color: var(--blanco);
     border: none;
     border-radius: 4px;
