@@ -5,6 +5,7 @@
     margin-bottom: 15px;
     box-shadow: var(--sombra);
     transition: transform 0.2s;
+    border-left: 4px solid var(--grisMedio);
 }
 
 .task-item:hover {
@@ -26,18 +27,18 @@
 }
 
 .task-item__header--parrafo {
+    color: var(--blanco);
 }
 
 .task-item__header--h2 {
-    font-size: 2rem;
-}
-
-
-.task-item__main {
-
+    font-weight: bold;
+    font-size: 20px;
 }
 
 .task-item__main--informacion {
+    margin-bottom: 10px;
+    font-size: 15px;
+    color: var(--grisOscuro);
 }
 
 .task-item__footer {
@@ -52,6 +53,7 @@
 }
 
 .task-item__footer--fecha {
+    color: var(--grisMedio);
     font-size: 15px;
 }
 
@@ -67,4 +69,9 @@
     display: flex;
     align-items: center;
     gap: 3px;
+    color: var(--grisOscuro);
+}
+
+.task-item__footer--boton:hover {
+    color: var(--negro);
 }
