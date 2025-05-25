@@ -1,0 +1,19 @@
+.task-alert__div {
+    background-color: rgba(255, 152, 0, 0.2);
+    border-left: 4px solid var(--anaranjado);
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.task-alert__p {
+font-family: var(--fuente);
+font-size: 15px;
+}
+
+.task-alert__icon {
+    width: 25px;
+}
