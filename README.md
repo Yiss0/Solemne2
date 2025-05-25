@@ -10,3 +10,4 @@ Commits significativos
 4. Feature: Modificación de colores de pagina y arreglos menores - Domingo 11 de Mayo de 2025 a las 11:27hrs.
 5. Feature: Creación de task-list y task-item - Domingo 18 de Mayo de 2025 a las 22:05hrs.
 6. Fix: Cambio en el diseño y eliminación de footer - Jueves 22 de Mayo de 2025 a las 22:32hrs.
+7. Feature: Creación del componente task-alert y se integran iconos en task-alert y task-item - Domingo 25 de Mayo de 2025 a las 01:36hrs.
