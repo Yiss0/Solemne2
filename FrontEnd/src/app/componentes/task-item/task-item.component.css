@@ -5,7 +5,7 @@
     margin-bottom: 15px;
     box-shadow: var(--sombra);
     transition: transform 0.2s;
-    border-left: 4px solid var(--grisMedio);
+    border-left: 4px solid var(--rojo);
 }
 
 .task-item:hover {
@@ -68,8 +68,16 @@
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 3px;
+    gap: 5px;
     color: var(--grisOscuro);
+}
+
+.task-item__footer--p {
+    color: var(--grisOscuro);
+}
+
+.task-item__footer--icon {
+    width: 20px;
 }
 
 .task-item__footer--boton:hover {
