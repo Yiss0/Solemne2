@@ -1,0 +1,74 @@
+.task-report{
+    margin:0 90px;
+    background-color: var(--primario);
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: var(--sombra);
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.task-report__header {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-report__header h2 {
+    color: var(--secundario);
+    font-size: 20px;
+}
+
+.task-report__header--boton {
+    background-color: var(--secundario);
+    color: var(--blanco);
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    cursor: pointer;
+    align-items: center;
+    font-size: 15px;
+}
+
+.task-report__info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.task-report__card {
+    flex: 1;
+    min-width: 200px;
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+
+
+.task-report__info h3 {
+    font-size: 14px;
+    color: var(--grisOscuro);
+    margin-bottom: 20px;
+}
+
+.task-report__info p {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.barra {
+    height: 8px;
+    background-color: var(--grisMedio);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.barra-progreso {
+    height: 100%;
+    background-color: var(--grisOscuro);
+}

@@ -10,8 +10,8 @@
 }
 
 .task-alert__p {
-font-family: var(--fuente);
-font-size: 15px;
+    font-family: var(--fuente);
+    font-size: 15px;
 }
 
 .task-alert__icon {

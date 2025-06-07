@@ -30,3 +30,107 @@
     gap: 5px;
     font-size: 15px;
 }
+
+/*Formulario*/
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 0.3s;
+}
+
+.task-form {
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+}
+
+.task-form__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.task-form__header--h3 {
+    font-family: var(--fuente);
+    font-size: 25px;
+    color: var(--secundario);
+}
+
+.task-form__header--boton {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.task-form__titulo {
+    font-size: 10px;
+    font-weight: bold;
+}
+
+
+.task-form__titulo--campo {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--grisMedio);
+    border-radius: 4px;
+}
+
+.task-form__info {
+ font-weight: bold;
+}
+
+.task-form__info textarea {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    border: 1px solid var(--grisMedio);
+    border-radius: 4px;
+    resize: none;
+}
+
+.task-form__fecha {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    gap: 35px;
+}
+
+.task-form__fecha--prioridad select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--grisMedio);
+    border-radius: 4px;
+}
+
+.task-form__fecha--fecha input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--grisMedio);
+    border-radius: 4px;
+}
+
+.task-form__boton {
+    background-color: var(--secundario);
+    color: var(--blanco);
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    cursor: pointer;
+    align-items: center;
+    font-size: 15px;
+    width: 100%;
+    margin-top: 25px;
+}
