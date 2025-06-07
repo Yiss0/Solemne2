@@ -4,10 +4,11 @@ import { AsideComponent } from './componentes/aside/aside.component';
 import { TaskListComponent } from './componentes/task-list/task-list.component';
 import { TaskItemComponent } from './componentes/task-item/task-item.component';
 import { TaskAlertComponent } from './componentes/task-alert/task-alert.component';
+import { TaskReportComponent } from './componentes/task-report/task-report.component';
 
 @Component({
   selector: 'app-root',
-  imports :[HeaderComponent, AsideComponent, TaskListComponent, TaskItemComponent, TaskListComponent],
+  imports :[HeaderComponent, AsideComponent, TaskListComponent, TaskItemComponent, TaskListComponent, TaskReportComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

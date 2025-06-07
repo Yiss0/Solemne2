@@ -80,6 +80,6 @@
     width: 20px;
 }
 
-.task-item__footer--boton:hover {
+.task-item__footer--p:hover {
     color: var(--negro);
 }

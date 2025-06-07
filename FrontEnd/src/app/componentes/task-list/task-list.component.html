@@ -1,7 +1,7 @@
 <section class="task-list--contenedor">
     <header class="task-list__header">
         <h1 class="task-list__header--h1">Mis tareas</h1>
-        <button class="task-list__header--boton">Nueva tarea</button>
+        <button class="task-list__header--boton" id="boton" (click)="Formulario()">Nueva tarea</button>
     </header>
 
     <div class="task-list">
@@ -10,4 +10,39 @@
         <app-task-item></app-task-item>
     </div>
 
+    <div class="modal-overlay" *ngIf="formulario">
+        <div class="task-form">
+            <div class="task-form__header">
+                <h3 class="task-form__header--h3">Nueva tarea</h3>
+                <button class="task-form__header--boton" (click)="Formulario()">
+                    <img src="/x.svg" alt="Icono Cerrar">
+                </button>
+            </div>
+            <form action="">
+                <div class="task-form__titulo">
+                    <label for="">Título</label>
+                    <input class="task-form__titulo--campo" type="text" id="task-titulo" required minlength="10">
+                </div>
+                <div class="task-form__info">
+                    <label for="">Descripción</label>
+                    <textarea id="task-info"></textarea>
+                </div>
+                <div class="task-form__fecha">
+                    <div class="task-form__fecha--prioridad">
+                        <label for="">Prioridad</label>
+                        <select id="task-prioridad" aria-placeholder="Seleccionar...">
+                            <option value="alta">Alta</option>
+                            <option value="media">Media</option>
+                            <option value="baja">Baja</option>
+                        </select>
+                    </div>
+                    <div class="task-form__fecha--fecha">
+                        <label for="form-fecha">Fecha de Vencimiento</label>
+                        <input type="date" id="form-fecha" required [min]="date">
+                    </div>
+                </div>
+                <button class="task-form__boton">Guardar Tarea</button>
+            </form>
+        </div>
+    </div>
 </section>
