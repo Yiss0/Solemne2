@@ -5,9 +5,10 @@
     </header>
 
     <div class="task-list">
-        <app-task-alert></app-task-alert>
-        <app-task-item></app-task-item>
-        <app-task-item></app-task-item>
+        <div *ngIf="tareas.length === 0">
+            <p>No tareas</p>
+        </div>
+        <app-task-item *ngFor="let tarea of tareas; trackBy: trackById" [tarea]="tarea"></app-task-item>
     </div>
 
     <div class="modal-overlay" *ngIf="formulario">

@@ -9,6 +9,20 @@
     --rojo: #f44336;
     --blanco: #fff;
     --negro: #000;
+
+    --altaPrioridadTexto: #f9e2e2;
+    --altaPrioridad: #e74c3c;
+
+    --mediaPrioridadTexto: #fff0d9;
+    --mediaPriorirdad: #f39c12;
+
+    --bajaPrioridadTexto: #e2f9e2;
+    --bajaPrioridad: #27ae60;
+
+    --bordeCompletado: #2ecc71;
+    --bordeVencida: #e74c3c;
+    --bordeNormal: #bbbbbb;
+
     --fuente: "Roboto", sans-serif;;
     --sombra: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
