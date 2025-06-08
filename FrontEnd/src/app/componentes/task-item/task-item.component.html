@@ -1,35 +1,67 @@
-<div class="task-item">
+<div class="task-item"
+[ngClass]="{
+    'task-item__completado': tarea.completado,
+    'task-item__vencida': tareaVencida() && !tarea.completado
+}">
     <div class="task-item__header">
-        <h2 class="task-item__header--h2">Crear base de datos</h2>
-        <div class="task-item__header--prioridad">
-            <p class="task-item__header--parrafo">Alta</p>
+        <h2 class="task-item__header--h2">{{tarea.titulo}}</h2>
+        <div class="task-item__header--prioridad"
+        [ngClass]="{
+            'prioridad-baja': tarea.prioridad === 'baja',
+            'prioridad-media': tarea.prioridad === 'media',
+            'prioridad-alta': tarea.prioridad === 'alta'
+        }">
+            <p class="task-item__header--parrafo">{{tarea.prioridad}}</p>
         </div>
     </div>
     <div class="task-item__main">
         <div class="task-item__main--informacion">
-            <p>Diseñar y crear la base de datos de la empresa</p>
+            <p>{{tarea.descripcion}}</p>
         </div>
         <div class="task-item__footer">
             <div class="task-item__footer--fechas">
+                <!--Div de fecha creada-->
                 <div>
-                    <p class="task-item__footer--fecha">Creada: 10/10/2025 </p>
+                    <p class="task-item__footer--fecha">Creada: {{tarea.fechaCreada | date:'d/M/yy'}}</p>
                 </div>
-                <div>
-                    <p class="task-item__footer--fecha">Vence: 20/10/2025</p>
+                <!--Div tarea completada-->
+                <div *ngIf="tarea.completado">
+                    <p class="task-item__footer--fecha">Completada</p>
+                </div>
+                <!--Div tarea vencida-->
+                <div *ngIf="tareaVencida()">
+                    <p class="task-item__footer--fecha">Vencida</p>
+                </div>
+                <!--Div tarea-->
+                <div *ngIf="!tarea.completado && !tareaVencida()">
+                    <p class="task-item__footer--fecha">Vence: {{tarea.fechaVenci | date:'d/M/yy'}}</p>
                 </div>
             </div>
             <div class="task-item__footer--acciones">
-                <button class="task-item__footer--boton">
+                <!--Boton editar-->
+                <button *ngIf="!tarea.completado" class="task-item__footer--boton">
                     <p class="task-item__footer--p">Editar</p>
                     <img class="task-item__footer--icon" src="/edit.svg" alt="Logo Editar">
                 </button>
+                <!--Boton borrar-->
                 <button class="task-item__footer--boton">
                     <p class="task-item__footer--p">Borrar</p>
                     <img class="task-item__footer--icon" src="/trash.svg" alt="Logo Borrar">
                 </button>
-                <button class="task-item__footer--boton">
+                <!--boton completar-->
+                <button *ngIf="!tarea.completado" class="task-item__footer--boton">
                     <p class="task-item__footer--p">Completar</p>
                     <img class="task-item__footer--icon" src="/check.svg" alt="Logo Check">
+                </button>
+                <!--boton reabrir-->
+                <button *ngIf="tarea.completado" class="task-item__footer--boton">
+                    <p class="task-item__footer--p">Reabrir</p>
+                    <img class="task-item__footer--icon" src="/arrow-back-up.svg" alt="Logo Reabrir">
+                </button>
+                <!--boton ver-->
+                <button *ngIf="tarea.completado" class="task-item__footer--boton">
+                    <p class="task-item__footer--p">Ver</p>
+                    <img class="task-item__footer--icon" src="/eye.svg" alt="Logo Reabrir">
                 </button>
             </div>
         </div>
