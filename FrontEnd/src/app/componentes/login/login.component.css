@@ -1,0 +1,88 @@
+.conte {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 70px);
+  padding: 2rem;
+}
+
+.login {
+  background-color: var(--blanco);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: var(--sombra);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+.login__header h2 {
+    margin-bottom: 5px;
+    color: var(--negro);
+    font-family: var(--fuente);
+    font-size: 35px;
+}
+
+.login__header p {
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+
+.login__form--caja {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.login__form--footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.login__form--footer--check {
+    display: flex;
+    gap: 10px;
+}
+
+.login__form--footer--check p {
+    font-size: 15px;
+}
+
+.login__form--footer--olv {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.login__form--footer--olv:hover {
+    cursor: pointer;
+}
+
+
+.login__form--boton {
+    background-color: var(--secundario);
+    color: var(--blanco);
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    cursor: pointer;
+    align-items: center;
+    gap: 5px;
+    font-size: 15px;
+    width: 100%;
+}
+
+.login__footer {
+    font-size: 15px;
+}
+
+.login__footer span {
+    font-weight: bold;
+}
+
+.login__footer span:hover {
+    cursor: pointer;
+}

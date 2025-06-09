@@ -13,3 +13,4 @@ Commits significativos
 7. Feature: Creación del componente task-alert y se integran iconos en task-alert y task-item - Domingo 25 de Mayo de 2025 a las 01:36hrs.
 8. Feature: Agregación de función agregar tarea y estadistica - Viernes 06 de Junio a las 23:54hrs.
 9. Feature: Creación de formatos de tareas - Domingo 08 de Junio a las 17:05hrs.
+10. Featura: Creación de login y formato de rutas - Domingo 08 de Junio a las 20:21hrs.

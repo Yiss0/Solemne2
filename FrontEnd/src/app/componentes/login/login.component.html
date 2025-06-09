@@ -1,0 +1,33 @@
+<div class="conte">
+    <div class="login">
+        <div class="login__header">
+            <h2>Iniciar Sesión</h2>
+            <p>Accede a tu cuenta para gestionar tus tareas</p>
+        </div>
+        <form (ngSubmit)="onLogin()" class="login__form">
+            <div>
+                <input type="email" placeholder="Correo electrónico"  class="login__form--caja" required>
+            </div>
+            <div>
+                <input type="password" placeholder="Contraseña" class="login__form--caja">
+            </div>
+            <div class="login__form--footer">
+                <div class="login__form--footer--check">
+                    <input type="checkbox">
+                    <p>Recordame</p>
+                </div>
+                <div class="login__form--footer--olv">
+                    <p>¿Olvidaste tu contraseña?</p>
+                </div>
+            </div>
+            <div>
+                <button type="submit"  class="login__form--boton">
+                    Inicio Sesión
+                </button>
+            </div>
+        </form>
+        <div class="login__footer">
+            <p>¿No tienes una cuenta? <span>Regístrate aquí</span></p>
+        </div>
+    </div>
+</div>
