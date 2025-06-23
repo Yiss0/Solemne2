@@ -1,6 +1,9 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 
 # Create your models here.
+
+User = get_user_model()
 
 prioridades = (
     ('0', 'Alta'),
@@ -11,6 +14,7 @@ prioridades = (
 
 class Tarea(models.Model):
     id_tarea = models.AutoField(primary_key = True)
+    usuario = models.ForeignKey(User, related_name='tareas', on_delete=models.CASCADE)
     titulo = models.CharField(max_length = 200)
     descripcion = models.TextField()
     completado = models.BooleanField(default = False)
