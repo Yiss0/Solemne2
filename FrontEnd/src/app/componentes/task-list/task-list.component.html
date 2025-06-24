@@ -6,9 +6,11 @@
 
     <div class="task-list">
         <div *ngIf="tareas.length === 0">
-            <p>No tareas</p>
+            <p>No existen tareas pedientes</p>
         </div>
-        <app-task-item *ngFor="let tarea of tareas; trackBy: trackById" [tarea]="tarea"></app-task-item>
+        <app-task-item *ngFor="let tarea of tareas; trackBy: trackById" [tarea]="tarea" (editar)="onEditarTarea(tarea)"
+            (borrar)="onBorrarTarea(tarea)" (completar)="onCompletarTarea(tarea)" (reabrir)="onReabrirTarea(tarea)">
+        </app-task-item>
     </div>
 
     <div class="modal-overlay" *ngIf="formulario">
@@ -19,30 +21,32 @@
                     <img src="/x.svg" alt="Icono Cerrar">
                 </button>
             </div>
-            <form action="">
+            <form (ngSubmit)="guardarTarea()" #taskForm="ngForm">
                 <div class="task-form__titulo">
                     <label for="">Título</label>
-                    <input class="task-form__titulo--campo" type="text" id="task-titulo" required minlength="10">
+                    <input class="task-form__titulo--campo" type="text" id="task-titulo" required minlength="10"
+                        [(ngModel)]="nuevoTitulo" name="titulo">
                 </div>
                 <div class="task-form__info">
                     <label for="">Descripción</label>
-                    <textarea id="task-info"></textarea>
+                    <textarea id="task-info" [(ngModel)]="nuevoDescripcion" name="descripcion"></textarea>
                 </div>
                 <div class="task-form__fecha">
                     <div class="task-form__fecha--prioridad">
                         <label for="">Prioridad</label>
-                        <select id="task-prioridad" aria-placeholder="Seleccionar...">
-                            <option value="alta">Alta</option>
-                            <option value="media">Media</option>
-                            <option value="baja">Baja</option>
+                        <select id="task-prioridad" [(ngModel)]="nuevoPrioridad" name="prioridad">
+                            <option value="0">Alta</option>
+                            <option value="1">Media</option>
+                            <option value="2">Baja</option>
                         </select>
                     </div>
                     <div class="task-form__fecha--fecha">
                         <label for="form-fecha">Fecha de Vencimiento</label>
-                        <input type="date" id="form-fecha" required [min]="date">
+                        <input type="date" id="form-fecha" required [min]="date" [(ngModel)]="nuevoFechaVenci"
+                            name="fechaVenci">
                     </div>
                 </div>
-                <button class="task-form__boton">Guardar Tarea</button>
+                <button class="task-form__boton" type="submit">Guardar Tarea</button>
             </form>
         </div>
     </div>
