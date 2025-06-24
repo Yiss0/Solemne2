@@ -8,10 +8,11 @@ import { TaskReportComponent } from './componentes/task-report/task-report.compo
 import { LoginComponent } from './componentes/login/login.component';
 import { RouterModule } from '@angular/router';
 import { RouterOutlet } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
-  imports :[HeaderComponent, AsideComponent, TaskListComponent, TaskItemComponent, TaskListComponent, TaskReportComponent, LoginComponent, RouterModule, RouterOutlet],
+  imports :[HeaderComponent, AsideComponent, TaskListComponent, TaskItemComponent, TaskListComponent, TaskReportComponent, LoginComponent, RouterModule, RouterOutlet, HttpClientModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

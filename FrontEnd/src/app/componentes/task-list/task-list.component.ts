@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core'; // <--- Añadido OnInit
+import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../../servicios/api.service';
+import { Tarea } from '../task-item/task-item.interface';
 import { TaskItemComponent } from '../task-item/task-item.component';
 import { TaskAlertComponent } from '../task-alert/task-alert.component';
 import { CommonModule } from '@angular/common';
-import { Tarea } from '../task-item/task-item.interface';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [TaskItemComponent, TaskAlertComponent, CommonModule],
+  imports: [TaskItemComponent, TaskAlertComponent, CommonModule, FormsModule],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.css'
 })
@@ -16,56 +18,126 @@ export class TaskListComponent implements OnInit {
   date: string = "";
   tareas: Tarea[] = [];
 
-  ngOnInit() {
-    this.tareas = [
-      //Normal, prioridad alta
-      {id: 1,
-      titulo: 'Realizar base de datos',
-      descripcion: 'diseñar y planear la base de datos',
-      completado: false,
-      fechaCreada: new Date('2025-06-04'),
-      fechaVenci: new Date('2025-07-01'),
-      prioridad: 'alta'
-    },
-    //Normal, prioridad media
-      {id: 2,
-      titulo: 'Configurar git',
-      descripcion: 'realizar el github de trabajo',
-      completado: false,
-      fechaCreada: new Date('2025-06-01'),
-      fechaVenci: new Date('2025-06-20'),
-      prioridad: 'media'
-    },
-    //Vencida,
-      {id: 3,
-      titulo: 'Escoger framework de trabajo',
-      descripcion: 'Plantear y escoger el framework de trabajo',
-      completado: false,
-      fechaCreada: new Date('2025-05-20'),
-      fechaVenci: new Date('2025-06-01'),
-      prioridad: 'alta'
-    },
-    //Completada, baja
-      {id: 4,
-      titulo: 'Escoger equipo de trabajo',
-      descripcion: 'Escoger con que compañeros trabajar',
-      completado: true,
-      fechaCreada: new Date('2025-06-01'),
-      fechaVenci: new Date('2025-06-20'),
-      prioridad: 'baja'
-    },
-    ]
+  nuevoTitulo: string = '';
+  nuevoDescripcion: string = '';
+  nuevoPrioridad: string = '1';
+  nuevoFechaVenci: string = '';
+
+  constructor(private api: ApiService) {
+    this.date = this.ahora();
   }
 
-  constructor() {
-    this.date = this.ahora();
+  ngOnInit() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.api.getTareas(token).subscribe({
+        next: (data) => this.tareas = data,
+        error: () => this.tareas = []
+      });
+    }
+  }
+
+  guardarTarea(): void {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    const nuevaTarea = {
+      titulo: this.nuevoTitulo,
+      descripcion: this.nuevoDescripcion,
+      prioridad: this.nuevoPrioridad,
+      fechaVenci: this.nuevoFechaVenci
+    };
+
+    this.api.addTarea(token, nuevaTarea).subscribe({
+      next: (tarea) => {
+        console.log('Completar tarea:', tarea);
+        this.tareas.push(tarea);
+        this.formulario = false;
+        this.nuevoTitulo = '';
+        this.nuevoDescripcion = '';
+        this.nuevoPrioridad = '1';
+        this.nuevoFechaVenci = '';
+      },
+      error: (err) => {
+        alert('Error al crear la tarea');
+      }
+    });
   }
 
   Formulario(): void {
     this.formulario = !this.formulario;
   }
 
-  //Validación fecha
+  onEditarTarea(tarea: Tarea): void {
+    console.log('Completar tarea:', tarea);
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    this.api.updateTarea(token, tarea).subscribe({
+      next: () => {
+        const index = this.tareas.findIndex(t => t.id_tarea === tarea.id_tarea);
+        if (index !== -1) {
+          this.tareas[index] = tarea;
+        }
+      },
+      error: (err) => {
+        alert('Error al editar la tarea');
+      }
+    });
+  }
+
+  onBorrarTarea(tarea: Tarea) {
+    console.log('Completar tarea:', tarea);
+    const token = localStorage.getItem('token');
+    if (!token) return;
+    this.api.deleteTarea(token, tarea.id_tarea).subscribe({
+      next: () => {
+        this.tareas = this.tareas.filter(t => t.id_tarea !== tarea.id_tarea);
+      },
+      error: () => {
+        alert('Error al eliminar la tarea');
+      }
+    });
+  }
+
+  onCompletarTarea(tarea: Tarea): void {
+    console.log('Completar tarea:', tarea);
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    tarea.completado = !tarea.completado;
+    this.api.updateTarea(token, tarea).subscribe({
+      next: () => {
+        const index = this.tareas.findIndex(t => t.id_tarea === tarea.id_tarea);
+        if (index !== -1) {
+          this.tareas[index] = tarea;
+        }
+      },
+      error: (err) => {
+        alert('Error al completar la tarea');
+      }
+    });
+  }
+
+  onReabrirTarea(tarea: Tarea): void {
+    console.log('Completar tarea:', tarea);
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    tarea.completado = false;
+    this.api.updateTarea(token, tarea).subscribe({
+      next: () => {
+        const index = this.tareas.findIndex(t => t.id_tarea === tarea.id_tarea);
+        if (index !== -1) {
+          this.tareas[index] = tarea;
+        }
+      },
+      error: (err) => {
+        alert('Error al reabrir la tarea');
+      }
+    });
+  }
+
   private ahora(): string {
     const hoy = new Date();
     const año = hoy.getFullYear();
@@ -75,7 +147,6 @@ export class TaskListComponent implements OnInit {
   }
 
   trackById(index: number, tarea: Tarea): number {
-    return tarea.id;
+    return tarea.id_tarea;
   }
-  
 }

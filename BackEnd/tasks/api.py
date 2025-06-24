@@ -18,4 +18,4 @@ class TareaViewSet(viewsets.ModelViewSet):
         return self.request.user.tareas.all()
 
     def perform_create(self, serializer):
-        serializer.save(propietario = self.request.user)
+        serializer.save(usuario = self.request.user)

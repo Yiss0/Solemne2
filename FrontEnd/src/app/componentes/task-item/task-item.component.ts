@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Tarea } from './task-item.interface';
 import { CommonModule } from '@angular/common';
 
@@ -10,6 +10,10 @@ import { CommonModule } from '@angular/common';
 })
 export class TaskItemComponent {
   @Input() tarea!: Tarea;
+  @Output() editar = new EventEmitter<void>();
+  @Output() borrar = new EventEmitter<void>();
+  @Output() completar = new EventEmitter<void>();
+  @Output() reabrir = new EventEmitter<void>();
 
   completado() {
     this.tarea.completado = !this.tarea.completado;
