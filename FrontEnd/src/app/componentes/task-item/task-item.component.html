@@ -36,31 +36,42 @@
                 </div>
             </div>
             <div class="task-item__footer--acciones">
-                <!--Boton editar-->
-                <button *ngIf="!tarea.completado" class="task-item__footer--boton" (click)="editar.emit()">
-                    <p class="task-item__footer--p">Editar</p>
-                    <img class="task-item__footer--icon" src="/edit.svg" alt="Logo Editar">
-                </button>
-                <!--Boton borrar-->
-                <button class="task-item__footer--boton" (click)="borrar.emit()">
-                    <p class="task-item__footer--p">Borrar</p>
-                    <img class="task-item__footer--icon" src="/trash.svg" alt="Logo Borrar">
-                </button>
-                <!--boton completar-->
-                <button *ngIf="!tarea.completado" class="task-item__footer--boton" (click)="completar.emit()">
-                    <p class="task-item__footer--p">Completar</p>
-                    <img class="task-item__footer--icon" src="/check.svg" alt="Logo Check">
-                </button>
-                <!--boton reabrir-->
-                <button *ngIf="tarea.completado" class="task-item__footer--boton" (click)="reabrir.emit()">
-                    <p class="task-item__footer--p">Reabrir</p>
-                    <img class="task-item__footer--icon" src="/arrow-back-up.svg" alt="Logo Reabrir">
-                </button>
-                <!--boton ver-->
-                <button *ngIf="tarea.completado" class="task-item__footer--boton">
-                    <p class="task-item__footer--p">Ver</p>
-                    <img class="task-item__footer--icon" src="/eye.svg" alt="Logo Reabrir">
-                </button>
+                <!-- Botones cuando la tarea está vencida -->
+                <ng-container *ngIf="tareaVencida() && !tarea.completado; else botonesNormales">
+                    <!--Boton editar-->
+                    <button class="task-item__footer--boton" (click)="editar.emit()">
+                        <p class="task-item__footer--p">Editar</p>
+                        <img class="task-item__footer--icon" src="/edit.svg" alt="Logo Editar">
+                    </button>
+                    <!--Boton borrar-->
+                    <button class="task-item__footer--boton" (click)="borrar.emit()">
+                        <p class="task-item__footer--p">Borrar</p>
+                        <img class="task-item__footer--icon" src="/trash.svg" alt="Logo Borrar">
+                    </button>
+                </ng-container>
+                <!-- Botones normales cuando no está vencida -->
+                <ng-template #botonesNormales>
+                    <!--Boton editar-->
+                    <button *ngIf="!tarea.completado" class="task-item__footer--boton" (click)="editar.emit()">
+                        <p class="task-item__footer--p">Editar</p>
+                        <img class="task-item__footer--icon" src="/edit.svg" alt="Logo Editar">
+                    </button>
+                    <!--Boton borrar-->
+                    <button class="task-item__footer--boton" (click)="borrar.emit()">
+                        <p class="task-item__footer--p">Borrar</p>
+                        <img class="task-item__footer--icon" src="/trash.svg" alt="Logo Borrar">
+                    </button>
+                    <!--boton completar-->
+                    <button *ngIf="!tarea.completado" class="task-item__footer--boton" (click)="completar.emit()">
+                        <p class="task-item__footer--p">Completar</p>
+                        <img class="task-item__footer--icon" src="/check.svg" alt="Logo Check">
+                    </button>
+                    <!--boton reabrir-->
+                    <button *ngIf="tarea.completado" class="task-item__footer--boton" (click)="reabrir.emit()">
+                        <p class="task-item__footer--p">Reabrir</p>
+                        <img class="task-item__footer--icon" src="/arrow-back-up.svg" alt="Logo Reabrir">
+                    </button>
+                </ng-template>
             </div>
         </div>
     </div>
