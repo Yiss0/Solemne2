@@ -23,6 +23,26 @@ export class TaskListComponent implements OnInit {
   nuevoPrioridad: string = '1';
   nuevoFechaVenci: string = '';
 
+  tareaEditando: Tarea | null = null;
+
+  private prioridadToString(prioridad: string): 'alta' | 'media' | 'baja' {
+    switch (prioridad) {
+      case '0': return 'alta';
+      case '1': return 'media';
+      case '2': return 'baja';
+      default: return 'media';
+    }
+  }
+
+  private prioridadToBackend(prioridad: string): string {
+    switch (prioridad) {
+      case 'alta': return '0';
+      case 'media': return '1';
+      case 'baja': return '2';
+      default: return '1';
+    }
+  }
+
   constructor(private api: ApiService) {
     this.date = this.ahora();
   }
@@ -31,7 +51,12 @@ export class TaskListComponent implements OnInit {
     const token = localStorage.getItem('token');
     if (token) {
       this.api.getTareas(token).subscribe({
-        next: (data) => this.tareas = data,
+        next: (data) => {
+          this.tareas = data.map((t: any) => ({
+            ...t,
+            prioridad: this.prioridadToString(t.prioridad)
+          }));
+        },
         error: () => this.tareas = []
       });
     }
@@ -41,53 +66,55 @@ export class TaskListComponent implements OnInit {
     const token = localStorage.getItem('token');
     if (!token) return;
 
-    const nuevaTarea = {
+    const tareaData = {
       titulo: this.nuevoTitulo,
       descripcion: this.nuevoDescripcion,
-      prioridad: this.nuevoPrioridad,
+      prioridad: this.prioridadToBackend(this.nuevoPrioridad),
       fechaVenci: this.nuevoFechaVenci
     };
 
-    this.api.addTarea(token, nuevaTarea).subscribe({
-      next: (tarea) => {
-        console.log('Completar tarea:', tarea);
-        this.tareas.push(tarea);
-        this.formulario = false;
-        this.nuevoTitulo = '';
-        this.nuevoDescripcion = '';
-        this.nuevoPrioridad = '1';
-        this.nuevoFechaVenci = '';
-      },
-      error: (err) => {
-        alert('Error al crear la tarea');
-      }
-    });
+    if (this.tareaEditando) {
+      const tareaActualizada = { ...this.tareaEditando, ...tareaData };
+      tareaActualizada.prioridad = this.prioridadToBackend(this.tareaEditando.prioridad);
+      this.api.updateTarea(token, tareaActualizada).subscribe({
+        next: (tarea) => {
+          tarea.prioridad = this.prioridadToString(tarea.prioridad);
+          const idx = this.tareas.findIndex(t => t.id_tarea === tarea.id_tarea);
+          if (idx !== -1) this.tareas[idx] = tarea;
+          this.resetFormulario();
+        },
+        error: (err) => {
+          alert('Error al editar la tarea');
+        }
+      });
+    } else {
+      this.api.addTarea(token, tareaData).subscribe({
+        next: (tarea) => {
+          tarea.prioridad = this.prioridadToString(tarea.prioridad);
+          this.tareas.push(tarea);
+          this.resetFormulario();
+        },
+        error: (err) => {
+          alert('Error al crear la tarea');
+        }
+      });
+    }
   }
 
   Formulario(): void {
     this.formulario = !this.formulario;
+    if (!this.formulario) this.resetFormulario();
   }
 
   onEditarTarea(tarea: Tarea): void {
-    console.log('Completar tarea:', tarea);
-    const token = localStorage.getItem('token');
-    if (!token) return;
-
-    this.api.updateTarea(token, tarea).subscribe({
-      next: () => {
-        const index = this.tareas.findIndex(t => t.id_tarea === tarea.id_tarea);
-        if (index !== -1) {
-          this.tareas[index] = tarea;
-        }
-      },
-      error: (err) => {
-        alert('Error al editar la tarea');
-      }
-    });
+    this.formulario = true;
+    this.tareaEditando = tarea;
+    this.nuevoTitulo = tarea.titulo;
+    this.nuevoDescripcion = tarea.descripcion;
+    this.nuevoPrioridad = tarea.prioridad;
   }
 
   onBorrarTarea(tarea: Tarea) {
-    console.log('Completar tarea:', tarea);
     const token = localStorage.getItem('token');
     if (!token) return;
     this.api.deleteTarea(token, tarea.id_tarea).subscribe({
@@ -101,16 +128,16 @@ export class TaskListComponent implements OnInit {
   }
 
   onCompletarTarea(tarea: Tarea): void {
-    console.log('Completar tarea:', tarea);
     const token = localStorage.getItem('token');
     if (!token) return;
 
-    tarea.completado = !tarea.completado;
-    this.api.updateTarea(token, tarea).subscribe({
-      next: () => {
-        const index = this.tareas.findIndex(t => t.id_tarea === tarea.id_tarea);
+    const tareaActualizada = { ...tarea, completado: true, prioridad: this.prioridadToBackend(tarea.prioridad) };
+    this.api.updateTarea(token, tareaActualizada).subscribe({
+      next: (tareaResp) => {
+        tareaResp.prioridad = this.prioridadToString(tareaResp.prioridad);
+        const index = this.tareas.findIndex(t => t.id_tarea === tareaResp.id_tarea);
         if (index !== -1) {
-          this.tareas[index] = tarea;
+          this.tareas[index] = tareaResp;
         }
       },
       error: (err) => {
@@ -120,22 +147,31 @@ export class TaskListComponent implements OnInit {
   }
 
   onReabrirTarea(tarea: Tarea): void {
-    console.log('Completar tarea:', tarea);
     const token = localStorage.getItem('token');
     if (!token) return;
 
-    tarea.completado = false;
-    this.api.updateTarea(token, tarea).subscribe({
-      next: () => {
-        const index = this.tareas.findIndex(t => t.id_tarea === tarea.id_tarea);
+    const tareaActualizada = { ...tarea, completado: false, prioridad: this.prioridadToBackend(tarea.prioridad) };
+    this.api.updateTarea(token, tareaActualizada).subscribe({
+      next: (tareaResp) => {
+        tareaResp.prioridad = this.prioridadToString(tareaResp.prioridad);
+        const index = this.tareas.findIndex(t => t.id_tarea === tareaResp.id_tarea);
         if (index !== -1) {
-          this.tareas[index] = tarea;
+          this.tareas[index] = tareaResp;
         }
       },
       error: (err) => {
         alert('Error al reabrir la tarea');
       }
     });
+  }
+
+  resetFormulario() {
+    this.formulario = false;
+    this.tareaEditando = null;
+    this.nuevoTitulo = '';
+    this.nuevoDescripcion = '';
+    this.nuevoPrioridad = '1';
+    this.nuevoFechaVenci = '';
   }
 
   private ahora(): string {

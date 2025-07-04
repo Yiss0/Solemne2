@@ -26,7 +26,7 @@ export class ApiService {
   }
   updateTarea(token: string, tarea: any): Observable<any> {
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
-    return this.http.put(this.apiUrl + 'tareas/' + tarea.id + '/', tarea, { headers });
+    return this.http.put(this.apiUrl + 'tareas/' + tarea.id_tarea + '/', tarea, { headers });
   }
   deleteTarea(token: string, id_tarea: number): Observable<any> {
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
