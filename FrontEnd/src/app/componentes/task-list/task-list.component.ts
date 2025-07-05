@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitter } from '@angular/core';
 import { ApiService } from '../../servicios/api.service';
 import { Tarea } from '../task-item/task-item.interface';
 import { TaskItemComponent } from '../task-item/task-item.component';
@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class TaskListComponent implements OnInit, OnChanges {
   @Input() filtro: any = { search: '', estados: [], prioridades: [] };
+  @Output() tareasChange = new EventEmitter<Tarea[]>();
 
   formulario: boolean = false;
   date: string = "";
@@ -44,6 +45,7 @@ export class TaskListComponent implements OnInit, OnChanges {
             prioridad: this.prioridadToString(t.prioridad)
           }));
           this.aplicarFiltro(this.filtro);
+          this.tareasChange.emit([...this.tareas]);
         },
         error: () => this.tareas = []
       });
@@ -133,9 +135,15 @@ export class TaskListComponent implements OnInit, OnChanges {
         next: (tarea) => {
           tarea.prioridad = this.prioridadToString(tarea.prioridad);
           const idx = this.tareas.findIndex(t => t.id_tarea === tarea.id_tarea);
-          if (idx !== -1) this.tareas[idx] = tarea;
+          if (idx !== -1) {
+            // Reemplazar la tarea en el array, luego crear una nueva referencia del array
+            this.tareas[idx] = tarea;
+            this.tareas = [...this.tareas]; // <<< Clave: Crear una nueva referencia del array
+          }
           this.aplicarFiltro(this.filtro);
           this.resetFormulario();
+          this.formulario = false;
+          this.tareasChange.emit(this.tareas); // Emitir la nueva referencia
         },
         error: (err) => {
           alert('Error al editar la tarea');
@@ -145,9 +153,12 @@ export class TaskListComponent implements OnInit, OnChanges {
       this.api.addTarea(token, tareaData).subscribe({
         next: (tarea) => {
           tarea.prioridad = this.prioridadToString(tarea.prioridad);
-          this.tareas.push(tarea);
+          // Añadir la nueva tarea y crear una nueva referencia del array
+          this.tareas = [...this.tareas, tarea]; // <<< Clave: Crear una nueva referencia del array
           this.aplicarFiltro(this.filtro);
           this.resetFormulario();
+          this.formulario = false;
+          this.tareasChange.emit(this.tareas); // Emitir la nueva referencia
         },
         error: (err) => {
           alert('Error al crear la tarea');
@@ -170,8 +181,10 @@ export class TaskListComponent implements OnInit, OnChanges {
     if (!token) return;
     this.api.deleteTarea(token, tarea.id_tarea).subscribe({
       next: () => {
-        this.tareas = this.tareas.filter(t => t.id_tarea !== tarea.id_tarea);
+        // Filtrar y crear una nueva referencia del array
+        this.tareas = this.tareas.filter(t => t.id_tarea !== tarea.id_tarea); // <<< Clave: Crear nueva referencia
         this.aplicarFiltro(this.filtro);
+        this.tareasChange.emit(this.tareas); // Emitir la nueva referencia
       },
       error: () => {
         alert('Error al eliminar la tarea');
@@ -189,8 +202,11 @@ export class TaskListComponent implements OnInit, OnChanges {
         tareaResp.prioridad = this.prioridadToString(tareaResp.prioridad);
         const index = this.tareas.findIndex(t => t.id_tarea === tareaResp.id_tarea);
         if (index !== -1) {
+          // Reemplazar la tarea y crear una nueva referencia del array
           this.tareas[index] = tareaResp;
+          this.tareas = [...this.tareas]; // <<< Clave: Crear una nueva referencia del array
           this.aplicarFiltro(this.filtro);
+          this.tareasChange.emit(this.tareas); // Emitir la nueva referencia
         }
       },
       error: (err) => {
@@ -209,8 +225,11 @@ export class TaskListComponent implements OnInit, OnChanges {
         tareaResp.prioridad = this.prioridadToString(tareaResp.prioridad);
         const index = this.tareas.findIndex(t => t.id_tarea === tareaResp.id_tarea);
         if (index !== -1) {
+          // Reemplazar la tarea y crear una nueva referencia del array
           this.tareas[index] = tareaResp;
+          this.tareas = [...this.tareas]; // <<< Clave: Crear una nueva referencia del array
           this.aplicarFiltro(this.filtro);
+          this.tareasChange.emit(this.tareas); // Emitir la nueva referencia
         }
       },
       error: (err) => {
