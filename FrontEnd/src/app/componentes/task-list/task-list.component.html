@@ -6,6 +6,7 @@
     </header>
 
     <div class="task-list">
+        <app-task-alert [cantidad]="tareasPorVencer"></app-task-alert>
         <div *ngIf="tareasFiltradas.length === 0">
             <p>No existen tareas pedientes</p>
         </div>
