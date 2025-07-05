@@ -28,6 +28,8 @@ export class TaskListComponent implements OnInit, OnChanges {
 
   tareaEditando: Tarea | null = null;
 
+  tareasPorVencer: number = 0;
+
   constructor(private api: ApiService) {
     this.date = this.ahora();
   }
@@ -82,7 +84,14 @@ export class TaskListComponent implements OnInit, OnChanges {
     }
 
     this.tareasFiltradas = tareas;
+    this.tareasPorVencer = this.calcularTareasPorVencer();
   }
+
+  calcularTareasPorVencer(): number {
+  return this.tareas.filter(t => {
+    return !t.completado && !this.tareaVencida(t);
+  }).length;
+}
 
   tareaVencida(tarea: Tarea): boolean {
     const hoy = new Date();
