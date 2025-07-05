@@ -1,0 +1,33 @@
+<!-- src/app/componentes/register/register.component.html -->
+<div class="conte">
+    <div class="login">
+        <div class="login__header">
+            <h2>Registrarse</h2>
+            <p>Crea tu cuenta para gestionar tus tareas</p>
+        </div>
+        <form (ngSubmit)="onRegister()" class="login__form">
+            <div>
+                <input type="text" [(ngModel)]="username" name="username" placeholder="Nombre de usuario"
+                    class="login__form--caja" required>
+            </div>
+            <div>
+                <input type="password" [(ngModel)]="password" name="password" placeholder="Contraseña"
+                    class="login__form--caja" required>
+            </div>
+            <div>
+                <input type="password" [(ngModel)]="password2" name="password2" placeholder="Confirmar Contraseña"
+                    class="login__form--caja" required>
+            </div>
+            <div *ngIf="error" class="error">{{ error }}</div>
+            <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+            <div>
+                <button type="submit" class="login__form--boton">
+                    Crear cuenta
+                </button>
+            </div>
+        </form>
+        <div class="login__footer">
+            <p>¿Ya tienes una cuenta? <span [routerLink]="['/login']">Inicia sesión aquí</span></p>
+        </div>
+    </div>
+</div>

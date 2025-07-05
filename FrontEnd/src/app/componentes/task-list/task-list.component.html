@@ -26,7 +26,7 @@
             <form (ngSubmit)="guardarTarea()" #taskForm="ngForm">
                 <div class="task-form__titulo">
                     <label for="">Título</label>
-                    <input class="task-form__titulo--campo" type="text" id="task-titulo" required minlength="10"
+                    <input class="task-form__titulo--campo" type="text" id="task-titulo" required minlength="10" maxlength="50"
                         [(ngModel)]="nuevoTitulo" name="titulo">
                 </div>
                 <div class="task-form__info">
