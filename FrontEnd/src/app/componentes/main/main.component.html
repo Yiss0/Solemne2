@@ -1,6 +1,6 @@
 <app-header></app-header>
 <main class="contenedor">
-    <app-aside></app-aside>
-    <app-task-list></app-task-list>
+    <app-aside (filtroChange)="onFiltroChange($event)"></app-aside>
+    <app-task-list [filtro]="filtro"></app-task-list>
 </main>
 <app-task-report></app-task-report>

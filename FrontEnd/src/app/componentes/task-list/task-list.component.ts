@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { ApiService } from '../../servicios/api.service';
 import { Tarea } from '../task-item/task-item.interface';
 import { TaskItemComponent } from '../task-item/task-item.component';
@@ -13,10 +13,13 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.css'
 })
-export class TaskListComponent implements OnInit {
+export class TaskListComponent implements OnInit, OnChanges {
+  @Input() filtro: any = { search: '', estados: [], prioridades: [] };
+
   formulario: boolean = false;
   date: string = "";
   tareas: Tarea[] = [];
+  tareasFiltradas: Tarea[] = [];
 
   nuevoTitulo: string = '';
   nuevoDescripcion: string = '';
@@ -24,24 +27,6 @@ export class TaskListComponent implements OnInit {
   nuevoFechaVenci: string = '';
 
   tareaEditando: Tarea | null = null;
-
-  private prioridadToString(prioridad: string): 'alta' | 'media' | 'baja' {
-    switch (prioridad) {
-      case '0': return 'alta';
-      case '1': return 'media';
-      case '2': return 'baja';
-      default: return 'media';
-    }
-  }
-
-  private prioridadToBackend(prioridad: string): string {
-    switch (prioridad) {
-      case 'alta': return '0';
-      case 'media': return '1';
-      case 'baja': return '2';
-      default: return '1';
-    }
-  }
 
   constructor(private api: ApiService) {
     this.date = this.ahora();
@@ -56,10 +41,70 @@ export class TaskListComponent implements OnInit {
             ...t,
             prioridad: this.prioridadToString(t.prioridad)
           }));
+          this.aplicarFiltro(this.filtro);
         },
         error: () => this.tareas = []
       });
     }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['filtro'] && this.tareas.length > 0) {
+      this.aplicarFiltro(this.filtro);
+    }
+  }
+
+  aplicarFiltro(filtro: any) {
+    if (!filtro) filtro = { search: '', estados: [], prioridades: [] };
+    let tareas = [...this.tareas];
+
+    // Filtro por texto
+    if (filtro.search && filtro.search.trim() !== '') {
+      tareas = tareas.filter(t =>
+        t.titulo.toLowerCase().includes(filtro.search.toLowerCase())
+      );
+    }
+
+    // Filtro por estado
+    if (filtro.estados && filtro.estados.length > 0) {
+      tareas = tareas.filter(t => {
+        const vencida = this.tareaVencida(t);
+        if (filtro.estados.includes('completadas') && t.completado) return true;
+        if (filtro.estados.includes('pendientes') && !t.completado && !vencida) return true;
+        if (filtro.estados.includes('vencida') && vencida && !t.completado) return true;
+        return false;
+      });
+    }
+
+    // Filtro por prioridad
+    if (filtro.prioridades && filtro.prioridades.length > 0) {
+      tareas = tareas.filter(t => filtro.prioridades.includes(t.prioridad));
+    }
+
+    this.tareasFiltradas = tareas;
+  }
+
+  tareaVencida(tarea: Tarea): boolean {
+    const hoy = new Date();
+    hoy.setHours(0, 0, 0, 0);
+    const fechaVenci = new Date(tarea.fechaVenci);
+    fechaVenci.setHours(0, 0, 0, 0);
+    return fechaVenci < hoy;
+  }
+
+  Formulario() {
+    this.formulario = !this.formulario;
+    if (!this.formulario) {
+      this.resetFormulario();
+    }
+  }
+
+  resetFormulario() {
+    this.nuevoTitulo = '';
+    this.nuevoDescripcion = '';
+    this.nuevoPrioridad = '1';
+    this.nuevoFechaVenci = '';
+    this.tareaEditando = null;
   }
 
   guardarTarea(): void {
@@ -69,18 +114,18 @@ export class TaskListComponent implements OnInit {
     const tareaData = {
       titulo: this.nuevoTitulo,
       descripcion: this.nuevoDescripcion,
-      prioridad: this.prioridadToBackend(this.nuevoPrioridad),
+      prioridad: this.nuevoPrioridad,
       fechaVenci: this.nuevoFechaVenci
     };
 
     if (this.tareaEditando) {
       const tareaActualizada = { ...this.tareaEditando, ...tareaData };
-      tareaActualizada.prioridad = this.prioridadToBackend(this.tareaEditando.prioridad);
       this.api.updateTarea(token, tareaActualizada).subscribe({
         next: (tarea) => {
           tarea.prioridad = this.prioridadToString(tarea.prioridad);
           const idx = this.tareas.findIndex(t => t.id_tarea === tarea.id_tarea);
           if (idx !== -1) this.tareas[idx] = tarea;
+          this.aplicarFiltro(this.filtro);
           this.resetFormulario();
         },
         error: (err) => {
@@ -92,6 +137,7 @@ export class TaskListComponent implements OnInit {
         next: (tarea) => {
           tarea.prioridad = this.prioridadToString(tarea.prioridad);
           this.tareas.push(tarea);
+          this.aplicarFiltro(this.filtro);
           this.resetFormulario();
         },
         error: (err) => {
@@ -101,17 +147,13 @@ export class TaskListComponent implements OnInit {
     }
   }
 
-  Formulario(): void {
-    this.formulario = !this.formulario;
-    if (!this.formulario) this.resetFormulario();
-  }
-
-  onEditarTarea(tarea: Tarea): void {
-    this.formulario = true;
+  onEditarTarea(tarea: Tarea) {
     this.tareaEditando = tarea;
     this.nuevoTitulo = tarea.titulo;
     this.nuevoDescripcion = tarea.descripcion;
-    this.nuevoPrioridad = tarea.prioridad;
+    this.nuevoPrioridad = this.prioridadToBackend(tarea.prioridad).toString();
+    this.nuevoFechaVenci = tarea.fechaVenci.toString();
+    this.formulario = true;
   }
 
   onBorrarTarea(tarea: Tarea) {
@@ -120,6 +162,7 @@ export class TaskListComponent implements OnInit {
     this.api.deleteTarea(token, tarea.id_tarea).subscribe({
       next: () => {
         this.tareas = this.tareas.filter(t => t.id_tarea !== tarea.id_tarea);
+        this.aplicarFiltro(this.filtro);
       },
       error: () => {
         alert('Error al eliminar la tarea');
@@ -138,6 +181,7 @@ export class TaskListComponent implements OnInit {
         const index = this.tareas.findIndex(t => t.id_tarea === tareaResp.id_tarea);
         if (index !== -1) {
           this.tareas[index] = tareaResp;
+          this.aplicarFiltro(this.filtro);
         }
       },
       error: (err) => {
@@ -157,6 +201,7 @@ export class TaskListComponent implements OnInit {
         const index = this.tareas.findIndex(t => t.id_tarea === tareaResp.id_tarea);
         if (index !== -1) {
           this.tareas[index] = tareaResp;
+          this.aplicarFiltro(this.filtro);
         }
       },
       error: (err) => {
@@ -165,24 +210,26 @@ export class TaskListComponent implements OnInit {
     });
   }
 
-  resetFormulario() {
-    this.formulario = false;
-    this.tareaEditando = null;
-    this.nuevoTitulo = '';
-    this.nuevoDescripcion = '';
-    this.nuevoPrioridad = '1';
-    this.nuevoFechaVenci = '';
-  }
-
-  private ahora(): string {
-    const hoy = new Date();
-    const año = hoy.getFullYear();
-    const mes = ('0' + (hoy.getMonth() + 1)).slice(-2);
-    const dia = ('0' + hoy.getDate()).slice(-2);
-    return `${año}-${mes}-${dia}`;
-  }
-
-  trackById(index: number, tarea: Tarea): number {
+  trackById(index: number, tarea: Tarea) {
     return tarea.id_tarea;
+  }
+
+  ahora(): string {
+    const hoy = new Date();
+    return hoy.toISOString().split('T')[0];
+  }
+
+  prioridadToString(prioridad: string | number): string {
+    if (prioridad === 0 || prioridad === '0') return 'alta';
+    if (prioridad === 1 || prioridad === '1') return 'media';
+    if (prioridad === 2 || prioridad === '2') return 'baja';
+    return prioridad as string;
+  }
+
+  prioridadToBackend(prioridad: string): number {
+    if (prioridad === 'alta') return 0;
+    if (prioridad === 'media') return 1;
+    if (prioridad === 'baja') return 2;
+    return 1;
   }
 }

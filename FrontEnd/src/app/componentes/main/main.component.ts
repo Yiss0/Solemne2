@@ -13,5 +13,9 @@ import { AsideComponent } from '../aside/aside.component';
   styleUrl: './main.component.css'
 })
 export class MainComponent {
+  filtro: any = { search: '', estados: [], prioridades: [] };
 
+  onFiltroChange(filtro: any) {
+    this.filtro = filtro;
+  }
 }
