@@ -1,14 +1,15 @@
 <section class="task-list--contenedor">
+
     <header class="task-list__header">
         <h1 class="task-list__header--h1">Mis tareas</h1>
         <button class="task-list__header--boton" id="boton" (click)="Formulario()">Nueva tarea</button>
     </header>
 
     <div class="task-list">
-        <div *ngIf="tareas.length === 0">
+        <div *ngIf="tareasFiltradas.length === 0">
             <p>No existen tareas pedientes</p>
         </div>
-        <app-task-item *ngFor="let tarea of tareas; trackBy: trackById" [tarea]="tarea" (editar)="onEditarTarea(tarea)"
+        <app-task-item *ngFor="let tarea of tareasFiltradas; trackBy: trackById" [tarea]="tarea" (editar)="onEditarTarea(tarea)"
             (borrar)="onBorrarTarea(tarea)" (completar)="onCompletarTarea(tarea)" (reabrir)="onReabrirTarea(tarea)">
         </app-task-item>
     </div>
