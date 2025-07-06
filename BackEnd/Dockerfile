@@ -1,5 +1,5 @@
 # Usa una imagen base de Python ligera y oficial.
-FROM python:3.11-slim
+FROM python:3.11-slim-buster
 
 # Establece variables de entorno para un rendimiento óptimo en Docker.
 ENV PYTHONDONTWRITEBYTECODE 1
