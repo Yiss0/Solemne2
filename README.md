@@ -1,62 +1,143 @@
-# Gestión de Tareas TaskManager Pro - TechNova Solutions
+# Aplicación de Gestión de Tareas
 
-Pagina dedicada a administrar tareas locales de cada usuario.
+Este repositorio contiene una aplicación completa para la gestión de tareas, desarrollada con Angular en el frontend y Django en el backend.
 
-## Ejecución Local
+## 🚀 Tecnologías Utilizadas
 
-### Prerrequisitos
+* **Frontend**: [Angular 19](https://angular.dev/)
+* **Backend**: [Django 5.2.3](https://www.djangoproject.com/)
+* **Base de Datos**: Por defecto, Django utiliza SQLite, pero puede ser configurada para otras bases de datos.
+* **Contenerización**: Docker y Docker Compose
 
-- Node.js (versión 18.x o superior)
-- Angular CLI
+## 📦 Estructura del Repositorio
 
-Para poder ejecutar la aplicación en tu entorno local, sigue los siguientes pasos:
+El repositorio se organiza en dos directorios principales:
 
-1. Clonar el repositorio
-```bash
-gi clone https://github.com/Yiss0/Solemne2
-```
-2. Instalar dependencias
-```bash
-npm install
-```
-3. Iniciar servidor de desarrollo
-```bash
-ng serve
-```
-4. Navega a `http://localhost:4200/`.
+* `BackEnd/`: Contiene todo el código de la aplicación Django (API REST).
+* `FrontEnd/`: Contiene el código fuente de la aplicación Angular.
 
-## Ejecución con Docker
+## ⚙️ Ejecución Local
+
+Para ejecutar la aplicación de forma local, asegúrate de tener instalados los prerrequisitos y sigue los pasos a continuación.
 
 ### Prerrequisitos
 
-- Docker Desktop
+* **Python**: Versión 3.11 o superior.
+* **pip**: Gestor de paquetes de Python.
+* **Node.js**: Versión 20 o superior.
+* **npm**: Gestor de paquetes de Node.js (viene con Node.js).
+* **Angular CLI**: Instálalo globalmente con `npm install -g @angular/cli`.
 
-Para poder ejecutar la aplicación utilizando Docker, sigue los siguientes pasos:
+### Pasos de Ejecución
 
-1. Construir la imagen de Docker utilizando el archivo Dockerfile
-```bash
-docker build -t taskmanager-pro .
-```
-2. Ejecutar el contenedor
-```bash
-docker run -d -p 80:80 taskmanager-pro
-```
-3. Navega a `http://localhost:80`
+1.  **Clonar el Repositorio**:
+    ```bash
+    git clone [https://github.com/Yiss0/Solemne2.git](https://github.com/Yiss0/Solemne2.git)
+    cd Solemne2
+    ```
 
-## Lista de commits significativos
+2.  **Configuración y Ejecución del Backend (Django)**:
+    * Navega al directorio del backend:
+        ```bash
+        cd BackEnd
+        ```
+    * Crea y activa un entorno virtual (recomendado):
+        ```bash
+        python -m venv venv
+        # En Windows
+        .\venv\Scripts\activate
+        # En macOS/Linux
+        source venv/bin/activate
+        ```
+    * Instala las dependencias de Python:
+        ```bash
+        pip install -r requirements.txt
+        ```
+        Las dependencias incluyen:
+        ```
+        asgiref==3.8.1
+        Django==5.2.3
+        django-cors-headers==4.7.0
+        djangorestframework==3.16.0
+        djangorestframework_simplejwt==5.5.0
+        PyJWT==2.9.0
+        sqlparse==0.5.3
+        tzdata==2025.2
+        gunicorn==20.1.0
+        ```
+    * Ejecuta las migraciones de la base de datos:
+        ```bash
+        python manage.py migrate
+        ```
+    * Inicia el servidor de desarrollo de Django:
+        ```bash
+        python manage.py runserver
+        ```
+        El backend estará disponible en `http://localhost:8000`.
 
-1. Commit inicial - Jueves 08 de Mayo de 2025 a las 11:49hrs.
-2. Feature: Creación header, aside, footer - Domingo 11 de Mayo de 2025 a las 01:03hrs.
-3. Feature: Diseño header, aside, footer - Domingo 11 de Mayo de 2025 a las 17:22hrs.
-4. Feature: Modificación de colores de pagina y arreglos menores - Domingo 11 de Mayo de 2025 a las 11:27hrs.
-5. Feature: Creación de task-list y task-item - Domingo 18 de Mayo de 2025 a las 22:05hrs.
-6. Fix: Cambio en el diseño y eliminación de footer - Jueves 22 de Mayo de 2025 a las 22:32hrs.
-7. Feature: Creación del componente task-alert y se integran iconos en task-alert y task-item - Domingo 25 de Mayo de 2025 a las 01:36hrs.
-8. Feature: Agregación de función agregar tarea y estadistica - Viernes 06 de Junio a las 23:54hrs.
-9. Feature: Creación de formatos de tareas - Domingo 08 de Junio a las 17:05hrs.
-10. Featura: Creación de login y formato de rutas - Domingo 08 de Junio a las 20:21hrs.
+3.  **Configuración y Ejecución del Frontend (Angular)**:
+    * Abre una nueva terminal y navega al directorio del frontend desde la raíz del repositorio:
+        ```bash
+        cd FrontEnd
+        ```
+    * Instala las dependencias de Node.js/npm:
+        ```bash
+        npm install
+        ```
+        Las dependencias incluyen:
+        ```
+        @angular/common@^19.2.0
+        @angular/compiler@^19.2.0
+        @angular/core@^19.2.0
+        @angular/forms@^19.2.0
+        @angular/platform-browser@^19.2.0
+        @angular/platform-browser-dynamic@^19.2.0
+        @angular/router@^19.2.0
+        jspdf@^3.0.1
+        rxjs@~7.8.0
+        tslib@^2.3.0
+        zone.js@~0.15.0
+        ```
+    * Inicia el servidor de desarrollo de Angular:
+        ```bash
+        ng serve --open
+        ```
+        La aplicación de frontend se abrirá automáticamente en tu navegador en `http://localhost:4200`.
 
+## 🐳 Ejecución con Docker
 
-## Creditos
+Puedes ejecutar toda la aplicación utilizando Docker y Docker Compose, lo cual es ideal para entornos de desarrollo y producción.
 
-Realizado por Jesús Contreras, correo de comunicación: `jicg151@gmail.com`.
+### Prerrequisitos
+
+* **Docker Desktop**: Asegúrate de tener Docker Engine y Docker Compose instalados. Puedes descargarlo desde [Docker Official Website](https://www.docker.com/products/docker-desktop/).
+
+### Pasos de Ejecución
+
+1.  **Construir y Levantar los Servicios**:
+    Desde la raíz del repositorio (`Solemne2/`), ejecuta el siguiente comando para construir las imágenes de Docker y levantar ambos servicios:
+    ```bash
+    docker-compose up --build -d
+    ```
+    * El flag `--build` reconstruye las imágenes si hay cambios en los Dockerfiles o en el código fuente.
+    * El flag `-d` ejecuta los contenedores en segundo plano.
+
+    Este comando construirá:
+    * **backend**: Una imagen Python basada en `python:3.11-slim-buster` que instala las dependencias de `requirements.txt` y expone el puerto `8000`.
+    * **frontend**: Una imagen Nginx basada en `node:20-alpine` para la construcción y `nginx:stable-alpine` para servir la aplicación Angular, exponiendo el puerto `80` internamente.
+
+2.  **Acceso a la Aplicación**:
+    * El **Frontend (Angular)** estará disponible en tu navegador en: [http://localhost:4200](http://localhost:4200)
+    * El **Backend (Django)** estará disponible en: [http://localhost:8000](http://localhost:8000)
+
+3.  **Detener los Servicios**:
+    Para detener y remover los contenedores y las redes creadas por Docker Compose, ejecuta:
+    ```bash
+    docker-compose down
+    ```
+
+## 🔗 Enlace al Repositorio
+
+Puedes encontrar el código fuente de este proyecto en GitHub:
+
+* [Repositorio de Gestión de Tareas](https://github.com/Yiss0/Solemne2)
