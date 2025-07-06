@@ -2,6 +2,7 @@
 # Usa una imagen base de Python ligera y oficial.
 FROM python:3.11-slim-buster
 =======
+# Utiliza una imagen base de Python. Se recomienda usar versiones slim o alpine para menor tamaño.
 FROM python:3.9-slim-buster
 >>>>>>> 850ae0b8886b4c098608b72d46785d94e093c253
 
