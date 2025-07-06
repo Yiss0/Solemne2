@@ -3,7 +3,7 @@ version: '3.8'
 services:
   # Servicio del Backend (Django)
   backend:
-    build: ./backend
+    build: ./BackEnd
     container_name: django_backend
     # El comando se ejecutará directamente desde el Dockerfile, pero lo dejamos aquí por claridad.
     command: gunicorn taskmanager.wsgi:application --bind 0.0.0.0:8000
@@ -12,7 +12,7 @@ services:
 
   # Servicio del Frontend (Angular)
   frontend:
-    build: ./frontend
+    build: ./FrontEnd
     container_name: angular_frontend
     ports:
       # Expone tu app de Angular en http://localhost:4200
