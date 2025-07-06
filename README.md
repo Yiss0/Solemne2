@@ -136,8 +136,5 @@ Puedes ejecutar toda la aplicación utilizando Docker y Docker Compose, lo cual 
     docker-compose down
     ```
 
-## 🔗 Enlace al Repositorio
-
-Puedes encontrar el código fuente de este proyecto en GitHub:
-
-* [Repositorio de Gestión de Tareas](https://github.com/Yiss0/Solemne2)
+## Creditos
+Aplicación desarrollada por Jesús Contreras - jcontrerasg5@correo.uss.cl
